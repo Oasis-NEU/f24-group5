@@ -1,5 +1,7 @@
+import asyncio
+import torch
 import speech_recognition as sr
-
+  
 # Create a Recognizer instance
 recognizer = sr.Recognizer()
 
