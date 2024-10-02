@@ -6,9 +6,10 @@ import './App.css'
 
 function StartRecordButton() {
   return (
-  <button style={{width : '200px'}}>
+  <button style={{width : '175px'}}
+          color="red">
     <h2>
-      Begin
+      Start
     </h2>
   </button>
   )
@@ -24,7 +25,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>React?</h1>
+      <h1>Welcome to Speaker!</h1>
       <div className="card">
         <StartRecordButton/>
         <p>
