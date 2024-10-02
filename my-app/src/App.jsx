@@ -6,38 +6,11 @@ import './App.css'
 
 function StartRecordButton() {
   return (
-  <button>
+  <button style={{width : '200px'}}>
     <h2>
-      Click to Start Recording
+      Begin
     </h2>
   </button>
-  )
-}
-
-function AboutPage() {
-  return (
-    <>
-      <div>
-        <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>React?</h1>
-      <div className="card">
-        <StartRecordButton/>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the React logo to learn more about your favorite :)
-      </p>      
-      <div>
-        <p className = "read-the-docs">
-          Noah Cheng's real name is "Joe Jr."
-        </p>
-      </div>
-    </>
   )
 }
 
@@ -55,7 +28,7 @@ function App() {
       <div className="card">
         <StartRecordButton/>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Click on the button above to begin your speech practice
         </p>
       </div>
       <p className="read-the-docs">
