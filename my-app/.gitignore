@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 *.venv/
 *.idea
+list1.wav
+tests_english.wav
