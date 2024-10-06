@@ -12,7 +12,7 @@ function Celebration() {
       <h1>Congratulations!</h1>
       <Confetti
         x={0.5}
-        y={0.1}
+        y={0.5}
         particleCount={50}
         deg={270}
         shapeSize={8}
@@ -25,24 +25,13 @@ function Celebration() {
   );
 }
 
-
-function StartRecordButton() {
-  return (
-  <Button style={{width : '175px'}} color="red" appearance="primary">
-    <h2>
-      Start
-    </h2>
-  </Button>
-  )
-}
-
 function NonCookiesPopUp() {
   return (
     <div>
       <h4>LOOK HERE FIRST</h4>
             <Popup trigger=
                 {<button> HERE </button>}
-                position="bottom center"
+                position="bottom left"
                 on="hover">
                 <div>We don&apos;t use cookies, but we want you to click accept anyways</div>
                 <button onClick={Celebration}>ACCEPT</button>
@@ -50,6 +39,18 @@ function NonCookiesPopUp() {
     </div>
   )
 }
+
+function StartRecordButton() {
+  return (
+  <Button style={{width : '175px'}} color="red" appearance="primary"
+    onClick={() => window.open('https://www.apple.com/shop/buy-iphone/iphone-16-pro')}>
+    <h2>
+      Start
+    </h2>
+  </Button>
+  )
+}
+
   
 function App() {
   // const [count, setCount] = useState(0)
