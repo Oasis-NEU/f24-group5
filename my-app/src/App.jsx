@@ -1,24 +1,32 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { Button } from "rsuite";
+import Button from '@mui/material/Button';
 
 
-function StartRecordButton() {
+function CookieButton() {
   return (
-  <Button style={{width : '175px'}} color="red" appearance="primary">
-    <h2>
-      Start
-    </h2>
-  </Button>
+    <Button  variant='outlined' disableElevation>
+      Click for Cookie Info
+    </Button>
   )
 }
 
+function StartRecordButton() {
+  return (
+    <Button variant='contained' href='https://www.apple.com/shop/buy-iphone/iphone-16-pro'>
+      Start Recording
+    </Button>
+  )
+}
+
+  
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
+    <CookieButton/>
       <div>
         <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -36,7 +44,7 @@ function App() {
       </p>      
       <div>
         <p className = "read-the-docs">
-          Noah Cheng's real name is "Joe Jr."
+          Noah Chengs real name is Joe Jr.
         </p>
       </div>
     </>
