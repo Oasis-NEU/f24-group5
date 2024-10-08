@@ -3,6 +3,8 @@ import asyncio
 import re
 from string import punctuation
 import math
+import numpy as np
+import pandas as pd
 
 ## API Frameworks
 from fastapi import FastAPI, Request
@@ -12,7 +14,7 @@ from pydantic import BaseModel
 import pyaudio as pa
 import torch
 import speech_recognition as sr
-import numpy as np
+
 
 ## NLP Libraries
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -62,11 +64,9 @@ def ngrams(sentence, n = 2):
     for i in range(len(token) - 1):
         list_ngrams.append(token[int(i): int(i + n)])
     return list_ngrams
-    
-def cos_sims(i, j):
-    return np.dot(i, j) / np.sqrt(np.dot(i, i) * np.dot(j, j))
 
-sample_text = ["Hello world, my name is Peter", "Hllo wrld, my name is Peter"]
+sample_text = ["A plain text editor that allows you to keep notes throughout the day, create a list, write or edit code without worrying about unwanted auto formatting.", 
+               "Save your text file in Google Drive as a Doc rather than a TXT file. This allows you to save important files that are editable, rather than auto saving every file."]
 
 class tf_idf:
     def __init__(self, doc1, doc2):
@@ -89,13 +89,13 @@ class tf_idf:
                 
     # finds number of docs word n appears in
     def num_docs(self):
-        
         for i in self.word_set:
             self.word_occ[i] = 0
         for i in self.sentence:
             for x in i:
-                self.word_occ[x] += 1
-        print(self.word_occ)
+                if self.word_occ[x] < 2:
+                    self.word_occ[x] += 1
+        #print(self.word_occ)
                 
     # finds freq of word in one doc
     def term_freq(self, doc, word): 
@@ -111,8 +111,8 @@ class tf_idf:
         try:
             x = self.word_occ[word]
         except:
-            x = 0
-        return np.log(2 / 1 + x)
+            x = 1
+        return np.log10(2 / x)
     
     # generates a tf-idf matrix per word
     def tf_idff(self, sent):
@@ -129,16 +129,22 @@ class tf_idf:
         vectors = []
         for i in self.sentence:
             vectors.append(self.tf_idff(i))
+        print(self.sentence)
+        #vectors = pd.DataFrame(vectors, columns = self.word_set)
         return vectors
     
     
-            
+def cos_sims(vec1, vec2):
+    numerator = np.dot(vec1, vec2)
+    print(numerator)
         
 x = tf_idf(sample_text[0], sample_text[1])            
-y = x.final_calc()
-#print(y[0])
-#print(y[1])      
 
+y = x.final_calc()
+print(y)  
+print(x.word_occ)  
+
+print(cos_sims(y[0], y[1]))
 #class SoundFile(BaseModel):
  #   name: str
   #  sound_bite # type: ignore
