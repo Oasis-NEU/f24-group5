@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speaker"
+authors = [
+    {name = "Peter Santalucia", email = "santalucia.p@northeastern.edu"},
+    {name = Noah Cheng, email = "cheng.no@northeastern.edu"},
+    {name = Thomas Yi, email = "yi.th@northeastern.edu"}, 
+    {name = Rudra Parvate, email = parvate.r@northeastern.edu"}
+    ]
+description = "Speaker analysis"
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Apache 2.0",
+    "Programming Language:: Python :: 3.11",
+    "Private :: Do Not Upload",
+    "Framework :: AsyncIO",
+    "Framework :: torch"
+    ]
+
+
+
+
