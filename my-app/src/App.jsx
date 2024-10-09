@@ -1,33 +1,52 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Button from '@mui/material/Button';
 
+
+function CookieButton() {
+  return (
+    <Button  variant='outlined' disableElevation>
+      Click for Cookie Info
+    </Button>
+  )
+}
+
+function StartRecordButton() {
+  return (
+    <Button variant='contained' href='https://www.apple.com/shop/buy-iphone/iphone-16-pro'>
+      Start Recording
+    </Button>
+  )
+}
+
+  
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
+    <CookieButton/>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Welcome to Speaker!</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <StartRecordButton/>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Click on the button above to begin your speech practice
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        Click on the React logo
+      </p>      
+      <div>
+        <p className = "read-the-docs">
+          Noah Chengs real name is Joe Jr.
+        </p>
+      </div>
     </>
   )
 }
