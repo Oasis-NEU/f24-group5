@@ -95,6 +95,11 @@ class Similarity:
 x = Similarity(sample_text).cosine_similarity_matrix()
 print(x[0][1])
 
+#TODO:
+# Learn and implement Mel Frequency Cepstral Coefficients to extract features from speech
+# Match these features to emotions, and from there, confidence
+
+
 #class SoundFile(BaseModel):
  #   name: str
   #  sound_bite # type: ignore
