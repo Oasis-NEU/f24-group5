@@ -18,7 +18,12 @@ import speech_recognition as sr
 
 ## NLP Libraries
 from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import *
 from tensorflow import keras
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+#from sklearn.pipeline import Pipeline
 
 #from os import path
 #audio_file= path.join(path.dirname(path.realpath(__file__)), "tests_english.wav")
@@ -65,86 +70,36 @@ def ngrams(sentence, n = 2):
         list_ngrams.append(token[int(i): int(i + n)])
     return list_ngrams
 
-sample_text = ["A plain text editor that allows you to keep notes throughout the day, create a list, write or edit code without worrying about unwanted auto formatting.", 
-               "Save your text file in Google Drive as a Doc rather than a TXT file. This allows you to save important files that are editable, rather than auto saving every file."]
+# str1 = "A plain text editor that allows you to keep notes throughout the day, create a list, write or edit code without worrying about unwanted auto formatting."
+# str2 = "Save your text file in Google Drive as a Doc rather than a TXT file. This allows you to save important files that are editable, rather than auto saving every file."
 
-class tf_idf:
-    def __init__(self, doc1, doc2):
-        self.doc1 = [word.lower() for word in word_tokenize(doc1) if word.isalpha()]
-        self.doc2 = [word.lower() for word in word_tokenize(doc2) if word.isalpha()]
-        self.sentence = [self.doc1] + [self.doc2]
-        self.samp_text = self.doc1 + self.doc2
-        self.word_set = []
-        self.word_index = {}
-        self.word_occ = {}
-        
-    # creates a corpus for each word in all docs
-    def create_corpus(self):
-        for word in self.samp_text:
-            if word not in self.word_set:
-                self.word_set.append(word)
-        
-        for i, word in enumerate(self.word_set):
-            self.word_index[word] = i
-                
-    # finds number of docs word n appears in
-    def num_docs(self):
-        for i in self.word_set:
-            self.word_occ[i] = 0
-        for i in self.sentence:
-            for x in i:
-                if self.word_occ[x] < 2:
-                    self.word_occ[x] += 1
-        #print(self.word_occ)
-                
-    # finds freq of word in one doc
-    def term_freq(self, doc, word): 
-        n = len(doc)
-        x = 0
-        for i in doc:
-            if word == i:
-                x += 1
-        return x / n
-    
-    # calculates the inverse document frequency (number of docs / word occ through all)
-    def calc_idf(self, word):
-        try:
-            x = self.word_occ[word]
-        except:
-            x = 1
-        return np.log10(2 / x)
-    
-    # generates a tf-idf matrix per word
-    def tf_idff(self, sent):
-        vec = np.zeros((len(self.word_set), ))        
-        for word in sent:
-            tf = self.term_freq(sent, word)
-            idf = self.calc_idf(word)
-            vec[self.word_index[word]] = tf * idf
-        return vec
-    
-    def final_calc(self):
-        self.create_corpus()
-        self.num_docs()
-        vectors = []
-        for i in self.sentence:
-            vectors.append(self.tf_idff(i))
-        print(self.sentence)
-        #vectors = pd.DataFrame(vectors, columns = self.word_set)
-        return vectors
-    
-    
-def cos_sims(vec1, vec2):
-    numerator = np.dot(vec1, vec2)
-    print(numerator)
-        
-x = tf_idf(sample_text[0], sample_text[1])            
 
-y = x.final_calc()
-print(y)  
-print(x.word_occ)  
+sample_text = ["Hello world. My name is Peter", 
+               "hello, word. My name is Peter"]
+    
+# sentences = sent_tokenize(str1) # NLTK function
+# total_documents = len(sentences)
+class Similarity:
+    def __init__(self, sample_txt):
+        tf_idf_matrix = []
+        cos_similarity = []
+    def tf_idf(self):    
+        vectorizer = TfidfVectorizer()
+        self.tf_idf_matrix = vectorizer.fit_transform(sample_text)
+    def cosine_similarity_matrix(self):
+        self.tf_idf()
+        self.cos_similarity = cosine_similarity(self.tf_idf_matrix[0:1], self.tf_idf_matrix)
+        return self.cos_similarity
 
-print(cos_sims(y[0], y[1]))
+
+x = Similarity(sample_text).cosine_similarity_matrix()
+print(x[0][1])
+
+#TODO:
+# Learn and implement Mel Frequency Cepstral Coefficients to extract features from speech
+# Match these features to emotions, and from there, confidence
+
+
 #class SoundFile(BaseModel):
  #   name: str
   #  sound_bite # type: ignore
