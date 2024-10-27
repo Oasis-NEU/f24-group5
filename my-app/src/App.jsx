@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Button from '@mui/material/Button';
-// import { Alert } from '@mui/material';
+import { Snackbar } from '@mui/material';
 
 
 function AlertDialogue() {
@@ -42,20 +42,25 @@ function AlertDialogue() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button href='https://www.google.com' >Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button href='https://www.google.com'>Disagree</Button>
+          <Button openAgree={true} onClick={handleClose} autoFocus>
             Agree
           </Button>
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            message="ACCEPT THE COOKIES"
+          />
         </DialogActions>
       </Dialog>
     </React.Fragment>
   );
 }
 
-function StartRecordButton() {
+function GetStartedButton() {
   return (
     <Button variant='contained' href='https://www.apple.com/shop/buy-iphone/iphone-16-pro'>
-      Start Recording
+      Get Started
     </Button>
   )
 }
@@ -73,7 +78,7 @@ function App() {
       </div>
       <h1>Welcome to Speaker!</h1>
       <div className="card">
-        <StartRecordButton/>
+        <GetStartedButton/>
         <p>
           Click on the button above to begin your speech practice
         </p>
