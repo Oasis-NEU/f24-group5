@@ -1,15 +1,55 @@
+import * as React from 'react';
 // import { useState } from 'react'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Button from '@mui/material/Button';
+// import { Alert } from '@mui/material';
 
 
-function CookieButton() {
+function AlertDialogue() {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Button  variant='outlined' disableElevation>
-      Click for Cookie Info
-    </Button>
-  )
+    <React.Fragment>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open Cookie Settings
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Let us use cookies?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            We haven&apos;t technically implemented cookies, but we could like you to allow us to use 
+            &quot;cookies&quot; anyways
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button href='https://www.google.com' >Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
 }
 
 function StartRecordButton() {
@@ -22,11 +62,10 @@ function StartRecordButton() {
 
   
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <>
-    <CookieButton/>
+    <AlertDialogue/>
       <div>
         <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -44,7 +83,7 @@ function App() {
       </p>      
       <div>
         <p className = "read-the-docs">
-          Noah Chengs real name is Joe Jr.
+          Noah Cheng&apos;s real name is Joe Jr.
         </p>
       </div>
     </>
