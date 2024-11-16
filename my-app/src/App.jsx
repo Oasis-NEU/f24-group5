@@ -20,13 +20,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+
 import About from './About'
 
 const theme = createTheme({
@@ -36,7 +37,7 @@ const theme = createTheme({
 });
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -250,33 +251,35 @@ function GetStartedButton() {
 
 
 function AboutButton() {
+  const navigate = useNavigate();
+
+  function HandleAboutClick() {
+    navigate("/about");
+  }
+
   return (
-    <Button variant='contained' onClick={HandleAboutClick}> 
+    <Button variant="contained" onClick={HandleAboutClick}>
       About
     </Button>
-  )
-}
-
-function HandleAboutClick() {
-  return (
-    <>
-    <Router>
-      <Routes>
-        {
-          <Route exact path="/" element={<About/>}/>
-        }
-      </Routes>
-    </Router>
-    </>
-  )
+  );
 }
 
 function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
+  );
+}
 
+// Separate Main Layout for clarity
+function MainLayout() {
   return (
     <>
-    <div/>
-    <CookiesBanner/>
+      <CookiesBanner />
       <div>
         <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
           <img src={reactLogo} className="InterpreterModeIcon" alt="SPEAKER" />
@@ -284,25 +287,20 @@ function App() {
       </div>
       <h1>Welcome to Speaker!</h1>
       <div className="card">
-        <GetStartedButton/>
-        <p>
-          Click on the button above to begin your speech practice
-        </p>
+        <GetStartedButton />
+        <p>Click on the button above to begin your speech practice</p>
       </div>
-      <p className="read-the-docs">
-        Click on the React logo
-      </p>      
+      <p className="read-the-docs">Click on the React logo</p>
       <div>
         <Divider />
-        <p className = "read-the-docs">
-          <Typography variant='subtitle1'>
-          Noah Cheng&apos;s real name is Joe Jr.
+        <p className="read-the-docs">
+          <Typography variant="subtitle1">
+            Noah Cheng&apos;s real name is Joe Jr.
           </Typography>
         </p>
       </div>
-      <AboutButton/>
+      <AboutButton />
     </>
-  )
+  );
 }
-
 export default App
