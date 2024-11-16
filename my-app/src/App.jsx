@@ -21,6 +21,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import PropTypes from 'prop-types';
+import About from './About';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
@@ -214,7 +215,15 @@ function GetStartedButton() {
   )
 }
 
-  
+
+function AboutButton() {
+  return (
+    <Button variant='contained' onClick={About.About}> 
+      About
+    </Button>
+  )
+}
+  // TODO : WHY ISN'T THIS WORKING
 function App() {
 
   return (
@@ -245,6 +254,7 @@ function App() {
           </Typography>
         </p>
       </div>
+      <AboutButton/>
     </>
   )
 }
