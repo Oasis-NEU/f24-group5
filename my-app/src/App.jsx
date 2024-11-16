@@ -20,8 +20,20 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import PropTypes from 'prop-types';
-import About from './About';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+import About from './About'
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
@@ -68,13 +80,6 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            MUI
-          </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
@@ -82,6 +87,13 @@ function DrawerAppBar(props) {
               </Button>
             ))}
           </Box>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            MUI
+          </Typography>
         </Toolbar>
       </AppBar>
       <nav>
@@ -102,12 +114,20 @@ function DrawerAppBar(props) {
         </Drawer>
       </nav>
       <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
+        <Toolbar/>
       </Box>
     </Box>
   );
 }
 
+
+function ToggleColorMode() {
+  return (
+    <ThemeProvider theme={theme}>
+      <App/>
+    </ThemeProvider>
+  );
+}
 
 function CookiesBanner() {
   const [bannerOpen, setBannerOpen] = React.useState(true);
@@ -119,24 +139,9 @@ function CookiesBanner() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="fixed" component="nav">
-        <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <DrawerAppBar/>
       <Container component="main" sx={{ pt: 3 }}>
-        <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-          Yurt
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          or
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          Nurt
-        </Typography>
+        <Toolbar/>
       </Container>
       <TrapFocus open disableAutoFocus disableEnforceFocus>
         <Fade appear={false} in={bannerOpen}>
@@ -197,15 +202,43 @@ function CookiesBanner() {
     </React.Fragment>
   );
 }
-DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
-
+function ThemeModeHandler() {
+  const { mode, setMode } = useColorScheme();
+  if (!mode) {
+    return null;
+  }
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+        minHeight: '56px',
+      }}
+    >
+      <FormControl>
+        <FormLabel id="demo-theme-toggle">Theme</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-theme-toggle"
+          name="theme-toggle"
+          row
+          value={mode}
+          onChange={(event) => setMode(event.target.value)}
+        >
+          <FormControlLabel value="system" control={<Radio />} label="System" />
+          <FormControlLabel value="light" control={<Radio />} label="Light" />
+          <FormControlLabel value="dark" control={<Radio />} label="Dark" />
+        </RadioGroup>
+      </FormControl>
+    </Box>
+  );
+}
 
 function GetStartedButton() {
   return (
@@ -218,17 +251,30 @@ function GetStartedButton() {
 
 function AboutButton() {
   return (
-    <Button variant='contained' onClick={About.About}> 
+    <Button variant='contained' onClick={HandleAboutClick}> 
       About
     </Button>
   )
 }
-  // TODO : WHY ISN'T THIS WORKING
+
+function HandleAboutClick() {
+  return (
+    <>
+    <Router>
+      <Routes>
+        {
+          <Route exact path="/" element={<About/>}/>
+        }
+      </Routes>
+    </Router>
+    </>
+  )
+}
+
 function App() {
 
   return (
     <>
-    <DrawerAppBar/>
     <div/>
     <CookiesBanner/>
       <div>
