@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "react-confetti-boom": "^1.0.0"
+  }
+}
