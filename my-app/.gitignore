@@ -22,4 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.venv
+*.venv/
+*.idea
+list1.wav
+tests_english.wav

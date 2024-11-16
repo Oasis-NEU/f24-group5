@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import './App.css'
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
@@ -285,7 +286,7 @@ function MainLayout() {
           <img src={reactLogo} className="InterpreterModeIcon" alt="SPEAKER" />
         </a>
       </div>
-      <h1>Welcome to Speaker!</h1>
+      <h1>Vite + React</h1>
       <div className="card">
         <GetStartedButton />
         <p>Click on the button above to begin your speech practice</p>
