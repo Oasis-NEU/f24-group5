@@ -20,7 +20,7 @@ import Grid from '@mui/material/Grid2';
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -33,7 +33,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        Speaker
       </Typography>
       <Divider />
       <List>
@@ -64,13 +64,6 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            MUI
-          </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
@@ -78,6 +71,13 @@ function DrawerAppBar(props) {
               </Button>
             ))}
           </Box>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            Speaker
+          </Typography>
         </Toolbar>
       </AppBar>
       <nav>
@@ -98,7 +98,7 @@ function DrawerAppBar(props) {
         </Drawer>
       </nav>
       <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
+        <Toolbar/>
       </Box>
     </Box>
   );
