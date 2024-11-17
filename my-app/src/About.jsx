@@ -18,6 +18,9 @@ import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid2';
 import { useNavigate } from 'react-router-dom';
+import peterPhoto from './assets/peter-santaboi2.jpeg';
+import joePhoto from './assets/joe-jr2.jpeg';
+import yhomasPhoto from './assets/ti_yhomas.jpeg';
 
 
 const drawerWidth = 240;
@@ -141,16 +144,16 @@ function CenteredElementGrid() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2} minHeight={160}>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/Users/rudra/Pictures/Photos/Edited/IMG_2083.heif" />
+            <Avatar yhomasPhoto />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center">
             <Avatar src="/static/images/avatar/2.jpg" />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/static/images/avatar/3.jpg" />
+            <Avatar peterPhoto />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/static/images/avatar/3.jpg" />
+            <Avatar joePhoto />
           </Grid>
         </Grid>
       </Box>
@@ -168,8 +171,14 @@ function About() {
         <Typography sx={{ marginBottom: 2 }}>
             Hello! Welcome to About Speaker!
         </Typography>
+        <Typography sx={{ marginBottom: 1 }}>
+          This project was developed by 4 Northeastern University students for Oasis.
+        </Typography>
+        <Typography sx={{ marginBottom: 3 }}>
+          Yhomas Ti, Rudra Parvate, Peter David Jin-soo SantaLucia, and Joe Cheng Jr.
+        </Typography>
         <Typography sx={{ marginBottom: 2 }}>
-          This project was developed by 4 Northeastern Univeristy students, each majoring in Computer Science.
+          The purpose of this project is to provide a platform for people to practice their public speaking skills.
         </Typography>
         <Box sx={{ border: 5 }}/>
         <CenteredElementGrid/>
