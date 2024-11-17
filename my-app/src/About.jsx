@@ -17,33 +17,58 @@ import Drawer from '@mui/material/Drawer';
 import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid2';
+import { useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
+  // eslint-disable-next-line react/prop-types
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  function HandleHomeClick() {
+    navigate("/");
+  }
+
+  function HandleAboutClick() {
+    navigate("/about");
+  }
+
+  function HomeButton() {
+    return (
+      <ListItem key="Home" disablePadding>
+        <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleHomeClick}> {/* Added onClick handler */}
+          <ListItemText primary="Home" />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
+  function AboutButton() {
+    return (
+      <ListItem key="About" disablePadding>
+        <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleAboutClick}>
+          <ListItemText primary="About" />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2 }} align='center'>
         Speaker
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <HomeButton /> {/* Added HomeButton */}
+        <AboutButton /> {/* Added AboutButton */}
       </List>
     </Box>
   );
@@ -64,23 +89,20 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Button sx={{ color: '#fff' }} onClick={HandleHomeClick}>Home</Button> {/* Added onClick handler */}
+            <Button sx={{ color: '#fff' }} onClick={HandleAboutClick}>About</Button>
           </Box>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}
           >
             Speaker
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav>
+      <Box component="nav">
         <Drawer
           container={container}
           variant="temporary"
@@ -96,9 +118,10 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
-      </nav>
+      </Box>
       <Box component="main" sx={{ p: 3 }}>
-        <Toolbar/>
+        <Toolbar />
+        {/* Add your main content here */}
       </Box>
     </Box>
   );
