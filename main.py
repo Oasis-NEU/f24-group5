@@ -7,8 +7,9 @@ import numpy as np
 import pandas as pd
 
 ## API Frameworks
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, UploadFile, File
 from pydantic import BaseModel
+import os
 
 ## Audio Processing Libraries
 import pyaudio as pa
@@ -27,32 +28,38 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #from os import path
 #audio_file= path.join(path.dirname(path.realpath(__file__)), "tests_english.wav")
-def speech_to_text_alpha1():
+
+#I'm commenting this function out because I was told to so don't blame me - Thomas 
+
+
+#def speech_to_text_alpha1():
+#    r = sr.Recognizer()
+#    with sr.Microphone() as source:
+#        r.adjust_for_ambient_noise(source)    
+#        print("Speak something...")
+#        audio_data = r.listen(source)
+#        try: 
+#            text = r.recognize_whisper(audio_data)
+#            print(text)
+#        except sr.UnknownValueError:
+#            print("Failed to transcribe")
+#        except sr.RequestError as e:
+#            print(f"Could not request results from service: {e}")
+#        return text
+
+
+def speech_to_text_final(audio_file):
     r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)    
-        print("Speak something...")
-        audio_data = r.listen(source)
+    with sr.AudioFile(audio_file) as source:
+        audio = r.record(source)  # read the entire audio file
         try: 
-            text = r.recognize_whisper(audio_data)
+            text = r.recognize_whisper(audio)
             print(text)
         except sr.UnknownValueError:
             print("Failed to transcribe")
         except sr.RequestError as e:
             print(f"Could not request results from service: {e}")
         return text
-
-
-#def speech_to_text_final(audio_file):
- #   with sr.AudioFile(audio_file) as source:
-  #      audio = r.record(source)  # read the entire audio file
-    #    try: 
-   #         text = r.recognize_whisper(audio)
-     #       print(text)
-      #  except sr.UnknownValueError:
-       #     print("Failed to transcribe")
-        #except sr.RequestError as e:
-         #   print(f"Could not request results from service: {e}")
 
 #k = speech_to_text_alpha1()
 
@@ -63,6 +70,7 @@ def clean_speech(string):
     return proc_token
 
 ## Pairwise matching for each part of the string
+## generating n-grams from the input sentence
 def ngrams(sentence, n = 2):
     token = clean_speech(sentence)
     list_ngrams = []
@@ -79,6 +87,12 @@ sample_text = ["Hello world. My name is Peter",
     
 # sentences = sent_tokenize(str1) # NLTK function
 # total_documents = len(sentences)
+
+#create a list with the transcribed audio and the cleaned speech 
+#thank you peter
+def make_list(trans_audio, clen_speech):
+    return [trans_audio, clean_speech(clen_speech)] 
+
 class Similarity:
     def __init__(self, sample_txt):
         tf_idf_matrix = []
@@ -108,3 +122,34 @@ print(x[0][1])
 #@app.post("/SoundFile/")
 #async def create_sb():
  #   return None
+
+
+@app.post("/process_audio/")
+ #endpoint of this FastAPI thing idk I'm trying guys
+async def process_audio(file: UploadFile = File(...)):
+    if not file.filename.endswith(".wav"):
+        print ("error - invalid file type; must be a .wav")
+    temp_file = f"temp_{file.filename}"
+    with open(temp_file, "wb") as f:
+        f.write(await file.read())
+
+    transcript = speech_to_text_final(temp_file)
+
+    #I imported os to maybe clean up the temporary file idk I found 
+    #this off google
+    os.remove(temp_file)
+
+    cleaned_speech = clean_speech(transcript)
+
+    grams = ngrams(cleaned_speech, n= 2)
+
+    #getting ready for Similarity to have its input
+    similarity_input = make_list(transcript, cleaned_speech)
+    simil = Similarity(similarity_input)
+    simil_matrix = simil.cosine_similarity_matrix()
+
+    return{
+        simil_matrix[0][1]
+    }
+
+    
