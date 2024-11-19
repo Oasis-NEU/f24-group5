@@ -20,7 +20,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Link from '@mui/material/Link';
 
-import yhomasPhoto from './assets/ti_yhomas.jpg';
+import yhomasPhoto from './assets/ti_yhomas2.jpg';
 import rudraPhoto from './assets/rudra-parvate.jpg';
 import peterPhoto from './assets/peter-santaboi2.jpg';
 import noahPhoto from './assets/joe-jr2.jpg';
@@ -178,7 +178,7 @@ const itemData = [
   {
     img: yhomasPhoto,
     title: 'Thomas Yi',
-    bio: "Hello! I am Thomas Yi, a Computer Science student at Northeastern University.",
+    bio: "Hello! My name is Thomas Yi, a Computer Science and Media Arts student at Northeastern University. While not coding, you can find me in Ryder Hall trying to make objects move on a screen from one side to the other.",
     linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/">LinkedIn</Link>
   },
   {
@@ -190,13 +190,14 @@ const itemData = [
   {
     img: peterPhoto,
     title: 'Peter SantaLucia',
-    bio: "Hello! I am Peter SantaLucia, a Computer Science student at Northeastern University.",
+    bio: "Hi! My name is Peter. I'm a Computer Science and Biology student at Northeastern. I plan to study bioinformatics after graduation. Outside of class, "
+     + "I play broomball for Oozma Kappa (Go Oozes!).",
     linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/">LinkedIn</Link>
   },
   {
     img: noahPhoto,
     title: 'Noah Cheng',
-    bio: "Hi, I am Noah Cheng, a Computer Science student at Northeastern University.",
+    bio: "Hi, I am Noah Cheng, a Computer Science and Game Development student at Northeastern University.",
     linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/">LinkedIn</Link>
   }
 ];
