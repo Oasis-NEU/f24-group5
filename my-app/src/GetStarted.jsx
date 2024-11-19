@@ -116,40 +116,47 @@ DrawerAppBar.propTypes = {
 export default function BasicTextFields() {
 const classes = useStyles()
 const [speech, setSpeech] = useState('')
+const [speechError, setSpeechError] = useState(false)
 
 const handleSubmit = (e) => {
   e.preventDefault()
+  setSpeechError(false)
 
+  if (speech == '') {
+    setSpeechError(true)
+  }
   if (speech) {
     console.log(speech)
   }
 }
 
     return (
-      <Form
-        component="form"
-        sx={{ '& > :not(style)': { m: 1, width: '100ch'} }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <TextField
-            onChange={(e) => setSpeech(e.target.value)}
-            id="standard-multiline-static" 
-            label="Input speech text here"
-            multiline 
-            helperText={'Click submit to start practicing'} 
-            rows={10} 
-            variant="outlined" />
-
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          endIcon={<KeyboardArrowRightIcon />}>
-          Submit
-        </Button>
-      </Form>
+      <Container size ="sm">
+        <Box
+          component="form"
+          sx={{ '& > :not(style)': { m: 1, width: '100ch'} }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+              onChange={(e) => setSpeech(e.target.value)}
+              id="standard-multiline-static" 
+              label="Input speech text here"
+              multiline 
+              helperText={'Click submit to start practicing'} 
+              rows={10} 
+              variant="outlined"
+          />
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            endIcon={<KeyboardArrowRightIcon />}>
+            Submit
+          </Button>
+        </Box>
+      </Container>
     );
   }
   

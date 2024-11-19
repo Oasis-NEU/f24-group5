@@ -4,20 +4,32 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import Fade from '@mui/material/Fade';
+import TrapFocus from '@mui/material/Unstable_TrapFocus';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import PropTypes from 'prop-types';
+import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+
+import About from './About'
 
 const useStyles = makeStyles({
   field: {
@@ -29,34 +41,41 @@ const useStyles = makeStyles({
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
+  // eslint-disable-next-line react/prop-types
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  function HandleAboutClick() {
+    navigate("/about");
+  }
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+      <Typography variant="h6" sx={{ my: 2 }} align='center'>
+        Speaker
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem key="Home" disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="About" disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleAboutClick}>
+            <ListItemText primary="About" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -73,23 +92,20 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Button sx={{ color: '#fff' }}>Home</Button>
+            <Button sx={{ color: '#fff' }} onClick={HandleAboutClick}>About</Button>
+          </Box>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}
           >
-            MUI
+            Speaker
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
         </Toolbar>
       </AppBar>
-      <nav>
+      <Box component="nav">
         <Drawer
           container={container}
           variant="temporary"
@@ -105,87 +121,66 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
-      </nav>
+      </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
+        {/* Add your main content here */}
       </Box>
     </Box>
   );
 }
 
-DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
-export default function Create() {
+function Create() {
   const classes = useStyles()
-  const [title, setTitle] = useState('')
   const [details, setDetails] = useState('')
-  const [titleError, setTitleError] = useState(false)
   const [detailsError, setDetailsError] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setTitleError(false)
     setDetailsError(false)
 
-    if (title == '') {
-      setTitleError(true)
-    }
     if (details == '') {
       setDetailsError(true)
     }
-    if (title && details) {
-      console.log(title, details)
+    if (details) {
+      console.log(details)
     } 
   }
 
   return (
-    <Container size="sm">
-      <Typography
-        variant="h6" 
-        color="textSecondary"
-        component="h2"
-        gutterBottom
-      >
-        Create a New Note
-      </Typography>
-      
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <TextField className={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
-          label="Note Title" 
-          variant="outlined" 
-          color="secondary" 
-          fullWidth
-          required
-          error={titleError}
-        />
-        <TextField className={classes.field}
-          onChange={(e) => setDetails(e.target.value)}
-          label="Details"
-          variant="outlined"
-          color="secondary"
-          multiline
-          rows={4}
-          fullWidth
-          required
-          error={detailsError}
-        />
+    <React.Fragment>
+      <CssBaseline />
+        <Typography
+          variant="h6" 
+          color="TextPrimary"
+          component="h2"
+          gutterBottom
+        >
+          Input your speech text here
+        </Typography>
+  
+        <form noValidate autoComplete="off" onSubmit={handleSubmit} fullWidth >
+          <TextField fullWidth className={classes.field}
+            onChange={(e) => setDetails(e.target.value)}
+            label="Speech text"
+            variant="outlined"
+            color="Primary"
+            multiline
+            rows={10}
+            error={detailsError}
+          />
 
-        <Button
-          type="submit" 
-          color="secondary" 
-          variant="contained">
-          Submit
-        </Button>
-      </form>
+          <Button
+            type="submit" 
+            color="primary" 
+            variant="contained">
+            Submit
+          </Button>
+        </form>
 
-      
-    </Container>
+    </React.Fragment>
   )
 }
+
+export default Create;
