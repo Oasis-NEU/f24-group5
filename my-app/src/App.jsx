@@ -177,7 +177,7 @@ function CookiesBanner() {
                 <Button size="small" onClick={closeBanner} variant="contained">
                   Allow all
                 </Button>
-                <Button size="small" onClick={closeBanner} href='https://www.google.com'>
+                <Button size="small" href='https://www.google.com'>
                   Reject all
                 </Button>
               </Stack>
