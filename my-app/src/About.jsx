@@ -18,9 +18,6 @@ import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid2';
 import { useNavigate } from 'react-router-dom';
-import peterPhoto from './assets/peter-santaboi2.jpeg';
-import joePhoto from './assets/joe-jr2.jpeg';
-import yhomasPhoto from './assets/ti_yhomas.jpeg';
 
 
 const drawerWidth = 240;
@@ -144,16 +141,16 @@ function CenteredElementGrid() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2} minHeight={160}>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar yhomasPhoto />
+            <Avatar src='/assets/ti_yhomas.jpg' />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center">
             <Avatar src="/static/images/avatar/2.jpg" />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar peterPhoto />
+            <Avatar src='/assets/peter-santaboi2.jpg' />
           </Grid>
           <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar joePhoto />
+            <Avatar src='/assets/joe-jr2.jpg' />
           </Grid>
         </Grid>
       </Box>
