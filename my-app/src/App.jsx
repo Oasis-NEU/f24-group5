@@ -24,7 +24,7 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Popover from '@mui/material/Popover';
 
 import About from './About'
-import RecordingPage from './RecordingPage';
+import Create from './inputSpeech'
 
 const drawerWidth = 240;
 
@@ -194,7 +194,7 @@ function GetStartedButton() {
   const navigate = useNavigate();
 
   function HandleGetStartedClick() {
-    navigate("/recordingpage");
+    navigate("/inputspeech");
   }
   
   return (
@@ -225,7 +225,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />} />
         <Route path="/about" element={<About />} />
-        <Route path="/recordingpage" element={<RecordingPage />} />
+        <Route path="/inputspeech" element={<Create />} />
       </Routes>
     </Router>
   );
