@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Link from '@mui/material/Link';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import yhomasPhoto from './assets/ti_yhomas2.jpg';
 import rudraPhoto from './assets/rudra-parvate.jpg';
@@ -179,26 +180,26 @@ const itemData = [
     img: yhomasPhoto,
     title: 'Thomas Yi',
     bio: "Hello! My name is Thomas Yi, a Computer Science and Media Arts student at Northeastern University. While not coding, you can find me in Ryder Hall trying to make objects move on a screen from one side to the other.",
-    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/">LinkedIn</Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/"><LinkedInIcon/></Link>
   },
   {
     img: rudraPhoto,
     title: 'Rudra Parvate',
     bio: "Hi! I'm Rudra, and I am currently enrolled at Northeastern University studying Computer Science and Business.",
-    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/">LinkedIn</Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>
   },
   {
     img: peterPhoto,
     title: 'Peter SantaLucia',
     bio: "Hi! My name is Peter. I'm a Computer Science and Biology student at Northeastern. I plan to study bioinformatics after graduation. Outside of class, "
      + "I play broomball for Oozma Kappa (Go Oozes!).",
-    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/">LinkedIn</Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/"><LinkedInIcon/></Link>
   },
   {
     img: noahPhoto,
     title: 'Noah Cheng',
     bio: "Hi, I am Noah Cheng, a Computer Science and Game Development student at Northeastern University.",
-    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/">LinkedIn</Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>
   }
 ];
 
@@ -214,17 +215,20 @@ function About() {
             Hello! Welcome to Speaker!
         </Typography>
         <Typography sx={{ marginBottom: 1 }}>
+          The purpose of this project is to provide a platform for people to practice their public speaking skills.
+        </Typography>
+        <Typography sx={{ marginBottom: 5 }}>
+          Over time, with practice, we hope to help you become a more confident and effective speaker.
+        </Typography>
+        <Box sx={{ border: 0.5 , marginBottom: 3 }} color={ 'gray' }/>
+        <Typography sx={{ marginBottom: 1 }}>
           This project was developed by 4 Northeastern University students as part of Club Oasis.
         </Typography>
         <Typography sx={{ marginBottom: 3 }}>
           Thomas Yi, Rudra Parvate, Peter SantaLucia, and Noah Cheng.
         </Typography>
-        <Box sx={{ border: 1 }} color={ 'gray' }/>
+        <Box sx={{ border: 0.5 }} color={ 'gray' }/>
         <StandardImageList/>
-        <Box sx={{ border: 1 }} color={ 'gray' }/>
-        <Typography sx={{ marginBottom: 2 }}>
-          The purpose of this project is to provide a platform for people to practice their public speaking skills.
-        </Typography>
     </div>
     </>
   )
