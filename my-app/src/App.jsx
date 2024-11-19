@@ -1,6 +1,5 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import reactLogo from './assets/react.svg'
 import './App.css'
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
@@ -239,7 +238,7 @@ function RecorderIcon() {
   
   return (
     <div>
-      <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
+      <a href="mailto:santaluca.p@northeastern.edu" target="_blank">
         <RecordVoiceOverIcon fontSize='large'
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}/>
