@@ -37,7 +37,6 @@ const theme = createTheme({
 });
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
   // eslint-disable-next-line react/prop-types
@@ -127,6 +126,42 @@ function DrawerAppBar(props) {
   );
 }
 
+function ThemeModeHandler() {
+  const { mode, setMode } = useColorScheme();
+  if (!mode) {
+    return null;
+  }
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+        minHeight: '56px',
+      }}
+    >
+      <FormControl>
+        <FormLabel id="demo-theme-toggle">Theme</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-theme-toggle"
+          name="theme-toggle"
+          row
+          value={mode}
+          onChange={(event) => setMode(event.target.value)}
+        >
+          <FormControlLabel value="system" control={<Radio />} label="System" />
+          <FormControlLabel value="light" control={<Radio />} label="Light" />
+          <FormControlLabel value="dark" control={<Radio />} label="Dark" />
+        </RadioGroup>
+      </FormControl>
+    </Box>
+  );
+}
 
 function ToggleColorMode() {
   return (
@@ -207,43 +242,6 @@ function CookiesBanner() {
         </Fade>
       </TrapFocus>
     </React.Fragment>
-  );
-}
-
-function ThemeModeHandler() {
-  const { mode, setMode } = useColorScheme();
-  if (!mode) {
-    return null;
-  }
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 3,
-        minHeight: '56px',
-      }}
-    >
-      <FormControl>
-        <FormLabel id="demo-theme-toggle">Theme</FormLabel>
-        <RadioGroup
-          aria-labelledby="demo-theme-toggle"
-          name="theme-toggle"
-          row
-          value={mode}
-          onChange={(event) => setMode(event.target.value)}
-        >
-          <FormControlLabel value="system" control={<Radio />} label="System" />
-          <FormControlLabel value="light" control={<Radio />} label="Light" />
-          <FormControlLabel value="dark" control={<Radio />} label="Dark" />
-        </RadioGroup>
-      </FormControl>
-    </Box>
   );
 }
 

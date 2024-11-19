@@ -15,15 +15,21 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import PropTypes from 'prop-types';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid2';
 import { useNavigate } from 'react-router-dom';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import Link from '@mui/material/Link';
+
+import yhomasPhoto from './assets/ti_yhomas.jpg';
+import rudraPhoto from './assets/rudra-parvate.jpg';
+import peterPhoto from './assets/peter-santaboi2.jpg';
+import noahPhoto from './assets/joe-jr2.jpg';
+
 
 
 const drawerWidth = 240;
 
 function DrawerAppBar(props) {
-  // eslint-disable-next-line react/prop-types
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -136,26 +142,64 @@ DrawerAppBar.propTypes = {
 };
 
 
-function CenteredElementGrid() {
-    return (
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2} minHeight={160}>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src='/assets/ti_yhomas.jpg' />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center">
-            <Avatar src="/static/images/avatar/2.jpg" />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src='/assets/peter-santaboi2.jpg' />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src='/assets/joe-jr2.jpg' />
-          </Grid>
-        </Grid>
-      </Box>
-    );
+function StandardImageList() {
+  return (
+    <ImageList sx={{ width: 1000, height: 1000 }} cols={4} rowHeight={0}>
+      {itemData.map((item) => (
+        <ImageListItem key={item.img}>
+          <img
+            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+            alt={item.title}
+            loading="lazy"
+          />
+          <Typography sx={{ marginBottom: 2 }} 
+          typography={'subtitle2'}
+          fontWeight={'light'} >
+          {item.title}
+          </Typography>
+          <Typography sx={{ marginBottom: 5 }} 
+          typography={'subtitle2'}>
+          {item.bio}
+          </Typography>
+          <Typography sx={{ marginBottom: 0 }} 
+          typography={'subtitle2'}
+          color='gray'>
+          {item.linkedIn}
+          </Typography>
+        </ImageListItem>
+        
+      ))}
+    </ImageList>
+  );
+}
+
+const itemData = [
+  {
+    img: yhomasPhoto,
+    title: 'Thomas Yi',
+    bio: "Hello! I am Thomas Yi, a Computer Science student at Northeastern University.",
+    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/">LinkedIn</Link>
+  },
+  {
+    img: rudraPhoto,
+    title: 'Rudra Parvate',
+    bio: "Hi! I'm Rudra, and I am currently enrolled at Northeastern University studying Computer Science and Business.",
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/">LinkedIn</Link>
+  },
+  {
+    img: peterPhoto,
+    title: 'Peter SantaLucia',
+    bio: "Hello! I am Peter SantaLucia, a Computer Science student at Northeastern University.",
+    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/">LinkedIn</Link>
+  },
+  {
+    img: noahPhoto,
+    title: 'Noah Cheng',
+    bio: "Hi, I am Noah Cheng, a Computer Science student at Northeastern University.",
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/">LinkedIn</Link>
   }
+];
 
   
 function About() {
@@ -166,19 +210,20 @@ function About() {
     <div/>
     <div>
         <Typography sx={{ marginBottom: 2 }}>
-            Hello! Welcome to About Speaker!
+            Hello! Welcome to Speaker!
         </Typography>
         <Typography sx={{ marginBottom: 1 }}>
-          This project was developed by 4 Northeastern University students for Oasis.
+          This project was developed by 4 Northeastern University students as part of Club Oasis.
         </Typography>
         <Typography sx={{ marginBottom: 3 }}>
-          Yhomas Ti, Rudra Parvate, Peter David Jin-soo SantaLucia, and Joe Cheng Jr.
+          Thomas Yi, Rudra Parvate, Peter SantaLucia, and Noah Cheng.
         </Typography>
+        <Box sx={{ border: 1 }} color={ 'gray' }/>
+        <StandardImageList/>
+        <Box sx={{ border: 1 }} color={ 'gray' }/>
         <Typography sx={{ marginBottom: 2 }}>
           The purpose of this project is to provide a platform for people to practice their public speaking skills.
         </Typography>
-        <Box sx={{ border: 5 }}/>
-        <CenteredElementGrid/>
     </div>
     </>
   )
