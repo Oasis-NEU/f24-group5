@@ -20,6 +20,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Link from '@mui/material/Link';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 import yhomasPhoto from './assets/ti_yhomas2.jpg';
 import rudraPhoto from './assets/rudra-parvate.jpg';
@@ -145,7 +146,7 @@ DrawerAppBar.propTypes = {
 
 function StandardImageList() {
   return (
-    <ImageList sx={{ width: 1000, height: 700 }} cols={4} rowHeight={0}>
+    <ImageList sx={{ width: 1000, height: 600 }} cols={4} rowHeight={0}>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -154,22 +155,21 @@ function StandardImageList() {
             alt={item.title}
             loading="lazy"
           />
-          <Typography sx={{ marginBottom: 2 }} 
+          <Typography sx={{ marginBottom: 1 }} 
           typography={'subtitle2'}
           fontWeight={'light'} >
           {item.title}
+          </Typography>
+          <Typography sx={{ marginBottom: 1 }} 
+          typography={'subtitle2'}
+          color='gray'>
+          {item.linkedIn} {item.instagram}
           </Typography>
           <Typography sx={{ marginBottom: 5 }} 
           typography={'subtitle2'}>
           {item.bio}
           </Typography>
-          <Typography sx={{ marginBottom: 0 }} 
-          typography={'subtitle2'}
-          color='gray'>
-          {item.linkedIn}
-          </Typography>
         </ImageListItem>
-        
       ))}
     </ImageList>
   );
@@ -180,26 +180,30 @@ const itemData = [
     img: yhomasPhoto,
     title: 'Thomas Yi',
     bio: "Hello! My name is Thomas Yi, a Computer Science and Media Arts student at Northeastern University. While not coding, you can find me in Ryder Hall trying to make objects move on a screen from one side to the other.",
-    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/"><LinkedInIcon/></Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/yhomas_ti/"><InstagramIcon/></Link>
   },
   {
     img: rudraPhoto,
     title: 'Rudra Parvate',
     bio: "Hi! I'm Rudra, and I am currently enrolled at Northeastern University studying Computer Science and Business.",
-    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/rudraparvate15/"><InstagramIcon/></Link>
   },
   {
     img: peterPhoto,
     title: 'Peter SantaLucia',
     bio: "Hi! My name is Peter. I'm a Computer Science and Biology student at Northeastern. I plan to study bioinformatics after graduation. Outside of class, "
      + "I play broomball for Oozma Kappa (Go Oozes!).",
-    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/"><LinkedInIcon/></Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/peter_santalucia/"><InstagramIcon/></Link>
   },
   {
     img: noahPhoto,
     title: 'Noah Cheng',
     bio: "Hi, I am Noah Cheng, a Computer Science and Game Development student at Northeastern University.",
-    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/the_noahwc/"><InstagramIcon/></Link>
   }
 ];
 
@@ -220,15 +224,18 @@ function About() {
         <Typography sx={{ marginBottom: 5 }}>
           Over time, with practice, we hope to help you become a more confident and effective speaker.
         </Typography>
-        <Box sx={{ border: 0.5 , marginBottom: 3 }} color={ 'gray' }/>
+        <Box sx={{ border: 0.2 , marginBottom: 3 }} color={ 'gray' }/>
         <Typography sx={{ marginBottom: 1 }}>
           This project was developed by 4 Northeastern University students as part of Club Oasis.
         </Typography>
         <Typography sx={{ marginBottom: 3 }}>
           Thomas Yi, Rudra Parvate, Peter SantaLucia, and Noah Cheng.
         </Typography>
-        <Box sx={{ border: 0.5 }} color={ 'gray' }/>
+        <Box sx={{ border: 0.2 }} color={ 'gray' }/>
         <StandardImageList/>
+        <Typography sx={{ marginBottom: 3 }}>
+          For any and all questions, comments, or concerns, please reach out to us at <a href="mailto:santaluca.p@northeastern.edu"> santalucia.p@northeastern.edu</a>.
+        </Typography>
     </div>
     </>
   )
