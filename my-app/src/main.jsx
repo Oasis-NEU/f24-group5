@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import GetStarted from './GetStarted.jsx'
 import './index.css'
+import BasicTextFields from './GetStarted.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <BasicTextFields />
   </StrictMode>,
 )

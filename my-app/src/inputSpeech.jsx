@@ -1,8 +1,11 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@mui/material/CssBaseline';
-import './App.css'
-import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import './App.css';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,10 +18,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import PropTypes from 'prop-types';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid2';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+
+const useStyles = makeStyles({
+  field: {
+    marginTop: 20,
+    marginBottom: 20,
+    display: 'block'
+  }
+})
+
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About'];
@@ -113,58 +121,71 @@ DrawerAppBar.propTypes = {
   window: PropTypes.func,
 };
 
-export default function BasicTextFields() {
-const classes = useStyles()
-const [speech, setSpeech] = useState('')
+export default function Create() {
+  const classes = useStyles()
+  const [title, setTitle] = useState('')
+  const [details, setDetails] = useState('')
+  const [titleError, setTitleError] = useState(false)
+  const [detailsError, setDetailsError] = useState(false)
 
-const handleSubmit = (e) => {
-  e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setTitleError(false)
+    setDetailsError(false)
 
-  if (speech) {
-    console.log(speech)
+    if (title == '') {
+      setTitleError(true)
+    }
+    if (details == '') {
+      setDetailsError(true)
+    }
+    if (title && details) {
+      console.log(title, details)
+    } 
   }
-}
-
-    return (
-      <Form
-        component="form"
-        sx={{ '& > :not(style)': { m: 1, width: '100ch'} }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <TextField
-            onChange={(e) => setSpeech(e.target.value)}
-            id="standard-multiline-static" 
-            label="Input speech text here"
-            multiline 
-            helperText={'Click submit to start practicing'} 
-            rows={10} 
-            variant="outlined" />
-
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          endIcon={<KeyboardArrowRightIcon />}>
-          Submit
-        </Button>
-      </Form>
-    );
-  }
-  
-function GetStarted() {
 
   return (
-    <>
-    <DrawerAppBar/>
-    <div/>
-    <div>
-        <Typography sx={{ marginBottom: 2 }}>
-            Paste your speech in the box bellow!
-        </Typography>
-        <BasicTextFields/>
-    </div>
-    </>
+    <Container size="sm">
+      <Typography
+        variant="h6" 
+        color="textSecondary"
+        component="h2"
+        gutterBottom
+      >
+        Create a New Note
+      </Typography>
+      
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <TextField className={classes.field}
+          onChange={(e) => setTitle(e.target.value)}
+          label="Note Title" 
+          variant="outlined" 
+          color="secondary" 
+          fullWidth
+          required
+          error={titleError}
+        />
+        <TextField className={classes.field}
+          onChange={(e) => setDetails(e.target.value)}
+          label="Details"
+          variant="outlined"
+          color="secondary"
+          multiline
+          rows={4}
+          fullWidth
+          required
+          error={detailsError}
+        />
+
+        <Button
+          type="submit" 
+          color="secondary" 
+          variant="contained">
+          Submit
+        </Button>
+      </form>
+
+      
+    </Container>
   )
 }
