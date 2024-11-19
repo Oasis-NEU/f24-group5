@@ -145,7 +145,7 @@ DrawerAppBar.propTypes = {
 
 function StandardImageList() {
   return (
-    <ImageList sx={{ width: 1000, height: 1000 }} cols={4} rowHeight={0}>
+    <ImageList sx={{ width: 1000, height: 700 }} cols={4} rowHeight={0}>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -163,11 +163,11 @@ function StandardImageList() {
           typography={'subtitle2'}>
           {item.bio}
           </Typography>
-          <Typography sx={{ marginBottom: 0 }} 
-          typography={'subtitle2'}
-          color='gray'>
-          {item.linkedIn}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+            <Typography sx={{ marginRight: 1 }} typography={'subtitle2'} color='gray'>
+              {item.linkedIn}
+            </Typography>
+           </Box>
         </ImageListItem>
         
       ))}
