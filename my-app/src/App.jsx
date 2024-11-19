@@ -24,6 +24,7 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Popover from '@mui/material/Popover';
 
 import About from './About'
+import RecordingPage from './RecordingPage';
 
 const drawerWidth = 240;
 
@@ -190,8 +191,14 @@ function CookiesBanner() {
 }
 
 function GetStartedButton() {
+  const navigate = useNavigate();
+
+  function HandleGetStartedClick() {
+    navigate("/recordingpage");
+  }
+  
   return (
-    <Button variant='contained' href='https://www.apple.com/shop/buy-iphone/iphone-16-pro'>
+    <Button variant='contained' onClick={HandleGetStartedClick}>
       Get Started
     </Button>
   )
@@ -218,6 +225,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />} />
         <Route path="/about" element={<About />} />
+        <Route path="/recordingpage" element={<RecordingPage />} />
       </Routes>
     </Router>
   );
