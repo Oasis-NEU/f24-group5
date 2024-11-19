@@ -1,7 +1,5 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
@@ -22,50 +20,48 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import Popover from '@mui/material/Popover';
 
 import About from './About'
-
-const theme = createTheme({
-  colorSchemes: {
-    dark: true,
-  },
-});
+import RecordingPage from './RecordingPage';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
 
 function DrawerAppBar(props) {
+  // eslint-disable-next-line react/prop-types
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  function HandleAboutClick() {
+    navigate("/about");
+  }
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+      <Typography variant="h6" sx={{ my: 2 }} align='center'>
+        Speaker
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem key="Home" disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="About" disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleAboutClick}>
+            <ListItemText primary="About" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -82,23 +78,20 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Button sx={{ color: '#fff' }}>Home</Button>
+            <Button sx={{ color: '#fff' }} onClick={HandleAboutClick}>About</Button>
           </Box>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}
           >
-            MUI
+            Speaker
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav>
+      <Box component="nav">
         <Drawer
           container={container}
           variant="temporary"
@@ -114,20 +107,12 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
-      </nav>
+      </Box>
       <Box component="main" sx={{ p: 3 }}>
-        <Toolbar/>
+        <Toolbar />
+        {/* Add your main content here */}
       </Box>
     </Box>
-  );
-}
-
-
-function ToggleColorMode() {
-  return (
-    <ThemeProvider theme={theme}>
-      <App/>
-    </ThemeProvider>
   );
 }
 
@@ -193,7 +178,7 @@ function CookiesBanner() {
                 <Button size="small" onClick={closeBanner} variant="contained">
                   Allow all
                 </Button>
-                <Button size="small" onClick={closeBanner} href='https://www.google.com'>
+                <Button size="small" href='https://www.google.com'>
                   Reject all
                 </Button>
               </Stack>
@@ -205,46 +190,15 @@ function CookiesBanner() {
   );
 }
 
-function ThemeModeHandler() {
-  const { mode, setMode } = useColorScheme();
-  if (!mode) {
-    return null;
-  }
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 3,
-        minHeight: '56px',
-      }}
-    >
-      <FormControl>
-        <FormLabel id="demo-theme-toggle">Theme</FormLabel>
-        <RadioGroup
-          aria-labelledby="demo-theme-toggle"
-          name="theme-toggle"
-          row
-          value={mode}
-          onChange={(event) => setMode(event.target.value)}
-        >
-          <FormControlLabel value="system" control={<Radio />} label="System" />
-          <FormControlLabel value="light" control={<Radio />} label="Light" />
-          <FormControlLabel value="dark" control={<Radio />} label="Dark" />
-        </RadioGroup>
-      </FormControl>
-    </Box>
-  );
-}
-
 function GetStartedButton() {
+  const navigate = useNavigate();
+
+  function HandleGetStartedClick() {
+    navigate("/recordingpage");
+  }
+  
   return (
-    <Button variant='contained' href='https://www.apple.com/shop/buy-iphone/iphone-16-pro'>
+    <Button variant='contained' onClick={HandleGetStartedClick}>
       Get Started
     </Button>
   )
@@ -271,10 +225,54 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />} />
         <Route path="/about" element={<About />} />
+        <Route path="/recordingpage" element={<RecordingPage />} />
       </Routes>
     </Router>
   );
 }
+
+function RecorderIcon() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  
+  return (
+    <div>
+      <a href="mailto:santaluca.p@northeastern.edu" target="_blank">
+        <RecordVoiceOverIcon fontSize='large'
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}/>
+      </a>
+      <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>Any questions, comments, or concerns? Click here.</Typography>
+      </Popover>
+    </div>
+  )
+}
+
 
 // Separate Main Layout for clarity
 function MainLayout() {
@@ -282,22 +280,14 @@ function MainLayout() {
     <>
       <CookiesBanner />
       <div>
-        <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
-          <img src={reactLogo} className="InterpreterModeIcon" alt="SPEAKER" />
-        </a>
+        <RecorderIcon />
       </div>
-      <h1>Vite + React</h1>
+      <h1>Welcome to Speaker! </h1>
       <div className="card">
         <GetStartedButton />
         <p>Click on the button above to begin your speech practice</p>
-      </div>
-      <p className="read-the-docs">Click on the React logo</p>
-      <div>
         <Divider />
         <p className="read-the-docs">
-          <Typography variant="subtitle1">
-            Noah Cheng&apos;s real name is Joe Jr.
-          </Typography>
         </p>
       </div>
       <AboutButton />

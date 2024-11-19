@@ -15,35 +15,68 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import PropTypes from 'prop-types';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid2';
+import { useNavigate } from 'react-router-dom';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import Link from '@mui/material/Link';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+import yhomasPhoto from './assets/ti_yhomas2.jpg';
+import rudraPhoto from './assets/rudra-parvate.jpg';
+import peterPhoto from './assets/peter-santaboi2.jpg';
+import noahPhoto from './assets/joe-jr2.jpg';
+
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
 
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  function HandleHomeClick() {
+    navigate("/");
+  }
+
+  function HandleAboutClick() {
+    navigate("/about");
+  }
+
+  function HomeButton() {
+    return (
+      <ListItem key="Home" disablePadding>
+        <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleHomeClick}> {/* Added onClick handler */}
+          <ListItemText primary="Home" />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
+  function AboutButton() {
+    return (
+      <ListItem key="About" disablePadding>
+        <ListItemButton sx={{ textAlign: 'center' }} onClick={HandleAboutClick}>
+          <ListItemText primary="About" />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+      <Typography variant="h6" sx={{ my: 2 }} align='center'>
+        Speaker
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <HomeButton /> {/* Added HomeButton */}
+        <AboutButton /> {/* Added AboutButton */}
       </List>
     </Box>
   );
@@ -64,23 +97,20 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Button sx={{ color: '#fff' }} onClick={HandleHomeClick}>Home</Button> {/* Added onClick handler */}
+            <Button sx={{ color: '#fff' }} onClick={HandleAboutClick}>About</Button>
+          </Box>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}
           >
-            MUI
+            Speaker
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
         </Toolbar>
       </AppBar>
-      <nav>
+      <Box component="nav">
         <Drawer
           container={container}
           variant="temporary"
@@ -96,9 +126,10 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
-      </nav>
+      </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
+        {/* Add your main content here */}
       </Box>
     </Box>
   );
@@ -113,26 +144,68 @@ DrawerAppBar.propTypes = {
 };
 
 
-function CenteredElementGrid() {
-    return (
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2} minHeight={160}>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/Users/rudra/Pictures/Photos/Edited/IMG_2083.heif" />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center">
-            <Avatar src="/static/images/avatar/2.jpg" />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/static/images/avatar/3.jpg" />
-          </Grid>
-          <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
-            <Avatar src="/static/images/avatar/3.jpg" />
-          </Grid>
-        </Grid>
-      </Box>
-    );
+function StandardImageList() {
+  return (
+    <ImageList sx={{ width: 1000, height: 600 }} cols={4} rowHeight={0}>
+      {itemData.map((item) => (
+        <ImageListItem key={item.img}>
+          <img
+            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+            alt={item.title}
+            loading="lazy"
+          />
+          <Typography sx={{ marginBottom: 1 }} 
+          typography={'subtitle2'}
+          fontWeight={'light'} >
+          {item.title}
+          </Typography>
+          <Typography sx={{ marginBottom: 1 }} 
+          typography={'subtitle2'}
+          color='gray'>
+          {item.linkedIn} {item.instagram}
+          </Typography>
+          <Typography sx={{ marginBottom: 5 }} 
+          typography={'subtitle2'}>
+          {item.bio}
+          </Typography>
+        </ImageListItem>
+      ))}
+    </ImageList>
+  );
+}
+
+const itemData = [
+  {
+    img: yhomasPhoto,
+    title: 'Thomas Yi',
+    bio: "Hello! My name is Thomas Yi, a Computer Science and Media Arts student at Northeastern University. While not coding, you can find me in Ryder Hall trying to make objects move on a screen from one side to the other.",
+    linkedIn: <Link href="https://www.linkedin.com/in/yhomasti/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/yhomas_ti/"><InstagramIcon/></Link>
+  },
+  {
+    img: rudraPhoto,
+    title: 'Rudra Parvate',
+    bio: "Hi! I'm Rudra, and I am currently enrolled at Northeastern University studying Computer Science and Business.",
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/rudraparvate15/"><InstagramIcon/></Link>
+  },
+  {
+    img: peterPhoto,
+    title: 'Peter SantaLucia',
+    bio: "Hi! My name is Peter. I'm a Computer Science and Biology student at Northeastern. I plan to study bioinformatics after graduation. Outside of class, "
+     + "I play broomball for Oozma Kappa (Go Oozes!).",
+    linkedIn: <Link href="https://www.linkedin.com/in/peter-santalucia/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/peter_santalucia/"><InstagramIcon/></Link>
+  },
+  {
+    img: noahPhoto,
+    title: 'Noah Cheng',
+    bio: "Hi, I am Noah Cheng, a Computer Science and Game Development student at Northeastern University.",
+    linkedIn: <Link href="https://www.linkedin.com/in/rudra-parvate/"><LinkedInIcon/></Link>,
+    instagram: <Link href="https://www.instagram.com/the_noahwc/"><InstagramIcon/></Link>
   }
+];
 
   
 function About() {
@@ -143,13 +216,26 @@ function About() {
     <div/>
     <div>
         <Typography sx={{ marginBottom: 2 }}>
-            Hello! Welcome to About Speaker!
+            Hello! Welcome to Speaker!
         </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          This project was developed by 4 Northeastern Univeristy students, each majoring in Computer Science.
+        <Typography sx={{ marginBottom: 1 }}>
+          The purpose of this project is to provide a platform for people to practice their public speaking skills.
         </Typography>
-        <Box sx={{ border: 5 }}/>
-        <CenteredElementGrid/>
+        <Typography sx={{ marginBottom: 5 }}>
+          Over time, with practice, we hope to help you become a more confident and effective speaker.
+        </Typography>
+        <Box sx={{ border: 0.2 , marginBottom: 3 }} color={ 'gray' }/>
+        <Typography sx={{ marginBottom: 1 }}>
+          This project was developed by 4 Northeastern University students as part of Club Oasis.
+        </Typography>
+        <Typography sx={{ marginBottom: 3 }}>
+          Thomas Yi, Rudra Parvate, Peter SantaLucia, and Noah Cheng.
+        </Typography>
+        <Box sx={{ border: 0.2 }} color={ 'gray' }/>
+        <StandardImageList/>
+        <Typography sx={{ marginBottom: 3 }}>
+          For any and all questions, comments, or concerns, please reach out to us at <a href="mailto:santaluca.p@northeastern.edu"> santalucia.p@northeastern.edu</a>.
+        </Typography>
     </div>
     </>
   )
