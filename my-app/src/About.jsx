@@ -163,11 +163,11 @@ function StandardImageList() {
           typography={'subtitle2'}>
           {item.bio}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
-            <Typography sx={{ marginRight: 1 }} typography={'subtitle2'} color='gray'>
-              {item.linkedIn}
-            </Typography>
-           </Box>
+          <Typography sx={{ marginBottom: 0 }} 
+          typography={'subtitle2'}
+          color='gray'>
+          {item.linkedIn}
+          </Typography>
         </ImageListItem>
         
       ))}
