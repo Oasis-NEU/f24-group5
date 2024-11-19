@@ -21,6 +21,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import Popover from '@mui/material/Popover';
 
 import About from './About'
 
@@ -222,28 +224,63 @@ function App() {
   );
 }
 
+function RecorderIcon() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  
+  return (
+    <div>
+      <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
+        <RecordVoiceOverIcon fontSize='large'
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}/>
+      </a>
+      <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>Any questions, comments, or concerns? Click here.</Typography>
+      </Popover>
+    </div>
+  )
+}
+
+
 // Separate Main Layout for clarity
 function MainLayout() {
   return (
     <>
       <CookiesBanner />
       <div>
-        <a href="https://www.linkedin.com/in/rudra-parvate/" target="_blank">
-          <img src={reactLogo} className="InterpreterModeIcon" alt="SPEAKER" />
-        </a>
+        <RecorderIcon />
       </div>
       <h1>Welcome to Speaker! </h1>
       <div className="card">
         <GetStartedButton />
         <p>Click on the button above to begin your speech practice</p>
-      </div>
-      <p className="read-the-docs">Click on the React logo</p>
-      <div>
         <Divider />
         <p className="read-the-docs">
-          <Typography variant="subtitle1">
-            Noah Cheng&apos;s real name is Joe Jr.
-          </Typography>
         </p>
       </div>
       <AboutButton />
