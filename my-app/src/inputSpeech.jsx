@@ -16,12 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import MainLayout from './App';
-import RecordingPage from './RecordingPage';
-import About from './About';
 
 const useStyles = makeStyles({
   field: {
