@@ -219,18 +219,6 @@ function AboutButton() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/inputspeech" element={<Create />} />
-      </Routes>
-    </Router>
-  );
-}
-
 function RecorderIcon() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -271,6 +259,18 @@ function RecorderIcon() {
       </Popover>
     </div>
   )
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/inputspeech" element={<Create />} />
+      </Routes>
+    </Router>
+  );
 }
 
 
