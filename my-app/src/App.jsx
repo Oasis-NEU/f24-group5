@@ -28,6 +28,8 @@ import Create from './inputSpeech'
 
 const drawerWidth = 240;
 
+var cookiesAccepted = false;
+
 function DrawerAppBar(props) {
   // eslint-disable-next-line react/prop-types
   const { window } = props;
@@ -121,6 +123,7 @@ function CookiesBanner() {
 
   const closeBanner = () => {
     setBannerOpen(false);
+    cookiesAccepted = true;
   };
 
   return (
@@ -194,7 +197,13 @@ function GetStartedButton() {
   const navigate = useNavigate();
 
   function HandleGetStartedClick() {
-    navigate("/inputspeech");
+    if (!cookiesAccepted) {
+      alert("Please accept cookies before continuing");
+      return;
+    }
+    else {
+      navigate("/inputspeech");
+    }
   }
   
   return (

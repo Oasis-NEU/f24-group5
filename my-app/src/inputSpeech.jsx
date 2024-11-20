@@ -16,7 +16,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import MainLayout from './App';
 
 const useStyles = makeStyles({
   field: {
@@ -29,6 +32,7 @@ const useStyles = makeStyles({
 
 const drawerWidth = 240;
 
+// eslint-disable-next-line no-unused-vars
 function DrawerAppBar(props) {
   // eslint-disable-next-line react/prop-types
   const { window } = props;
@@ -117,6 +121,20 @@ function DrawerAppBar(props) {
   );
 }
 
+function GoBackButton() {
+  const navigate = useNavigate();
+
+  function HandleBackClick() {
+    navigate("/");
+  }
+
+  return (
+    <Button variant='text' onClick={HandleBackClick} color='blue'>
+      <ArrowBackIcon /> Back
+    </Button>
+  )
+}
+
 
 function Create() {
   const classes = useStyles()
@@ -135,8 +153,15 @@ function Create() {
     } 
   }
 
+  <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+      </Routes>
+    </Router>
+
   return (
     <React.Fragment>
+      <GoBackButton />
       <CssBaseline />
         <Typography
           variant="h6" 
