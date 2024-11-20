@@ -20,6 +20,8 @@ import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import MainLayout from './App';
+import RecordingPage from './RecordingPage';
+import About from './About';
 
 const useStyles = makeStyles({
   field: {
@@ -129,17 +131,35 @@ function GoBackButton() {
   }
 
   return (
-    <Button variant='text' onClick={HandleBackClick} color='blue'>
+    <Button variant='text' onClick={HandleBackClick}>
       <ArrowBackIcon /> Back
     </Button>
   )
 }
 
+function SubmitButton() {
+  const navigate = useNavigate();
+  
+  function HandleSubmitClick() {
+    navigate("/RecordingPage");
+  }
+
+  return (
+    <Button
+      type="submit" 
+      color="primary" 
+      variant="contained"
+      onClick={HandleSubmitClick}>
+      Submit
+    </Button>
+  )
+}
 
 function Create() {
   const classes = useStyles()
   const [details, setDetails] = useState('')
   const [detailsError, setDetailsError] = useState(false)
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -148,16 +168,18 @@ function Create() {
     if (details == '') {
       setDetailsError(true)
     }
-    if (details) {
+    else {
       console.log(details)
+      navigate("/RecordingPage");
     } 
   }
-
+  
   <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<MainLayout />} />
+      <Route path="/RecordingPage" element={<RecordingPage />} />
+    </Routes>
+  </Router>
 
   return (
     <React.Fragment>
@@ -179,16 +201,11 @@ function Create() {
             variant="outlined"
             color="Primary"
             multiline
-            rows={10}
+            rows={20}
             error={detailsError}
           />
 
-          <Button
-            type="submit" 
-            color="primary" 
-            variant="contained">
-            Submit
-          </Button>
+          <SubmitButton />
         </form>
 
     </React.Fragment>

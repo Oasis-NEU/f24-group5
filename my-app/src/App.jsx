@@ -25,6 +25,7 @@ import Popover from '@mui/material/Popover';
 
 import About from './About'
 import Create from './inputSpeech'
+import RecordingPage from './RecordingPage'
 
 const drawerWidth = 240;
 
@@ -243,7 +244,7 @@ function RecorderIcon() {
   
   return (
     <div>
-      <a href="mailto:santaluca.p@northeastern.edu" target="_blank">
+      <a href="mailto:santalucia.p@northeastern.edu" target="_blank">
         <RecordVoiceOverIcon fontSize='large'
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}/>
@@ -277,6 +278,7 @@ function App() {
         <Route path="/" element={<MainLayout />} />
         <Route path="/about" element={<About />} />
         <Route path="/inputspeech" element={<Create />} />
+        <Route path="/RecordingPage" element={<RecordingPage />} />
       </Routes>
     </Router>
   );
