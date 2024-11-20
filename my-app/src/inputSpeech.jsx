@@ -173,13 +173,6 @@ function Create() {
       navigate("/RecordingPage");
     } 
   }
-  
-  <Router>
-    <Routes>
-      <Route path="/" element={<MainLayout />} />
-      <Route path="/RecordingPage" element={<RecordingPage />} />
-    </Routes>
-  </Router>
 
   return (
     <React.Fragment>
