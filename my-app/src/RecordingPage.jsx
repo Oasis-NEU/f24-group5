@@ -132,14 +132,18 @@ DrawerAppBar.propTypes = {
    */
   window: PropTypes.func,
 };
-  
-function RecordingPage() {
 
+const component = {
+  str: String
+};
+
+export default function RecordingPage(props) {
+  const DisplayedSpeech = component[props.str];
   return (
     <>
-    <DrawerAppBar/>
+    <div>
+      <DisplayedSpeech speech={props.str} />
+    </div>
     </>
   )
 }
-
-export default RecordingPage;
