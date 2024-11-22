@@ -26,6 +26,7 @@ import Popover from '@mui/material/Popover';
 import About from './About'
 import Create from './inputSpeech'
 import RecordingPage from './RecordingPage'
+import ResultsPage from './ResultsPage'
 
 const drawerWidth = 240;
 
@@ -279,6 +280,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/inputspeech" element={<Create />} />
         <Route path="/RecordingPage" element={<RecordingPage />} />
+        <Route path="/results" element={<ResultsPage />} />
       </Routes>
     </Router>
   );
