@@ -39,7 +39,7 @@ export default function RecordingPage() {
           <GoBackButton />
         </div>
         <Typography variant="h7" sx={{ my: 2, mb: 4 }} align='center' marginBottom={'50px'}>
-          Begin recording on your own time (beginning a new recording will stop the current one).
+          Begin recording on your own time (beginning a new recording will reset your recording).
         </Typography>
         <ReactMediaRecorder
           audio
@@ -60,7 +60,7 @@ export default function RecordingPage() {
                     setIsRecording(true);
                   }
                 }}
-                sx={{ minWidth: '150px' , fontSize: '1rem', padding: '8px 16px' }}
+                sx={{ minWidth: '150px' , fontSize: '1rem', padding: '8px 16px' , mt: 4}}
               >
                 {isRecording ? "Stop Recording" : "Start Recording"}
               </Button>
