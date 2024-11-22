@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, TextField } from '@mui/material';
 import { ReactMediaRecorder } from 'react-media-recorder';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useLocation } from 'react-router-dom';
 
 function GoBackButton() {
   const navigate = useNavigate();
@@ -24,14 +23,53 @@ function GoBackButton() {
   )
 }
 
-
-
 export default function RecordingPage() {
   const location = useLocation();
   const { details } = location.state || {};
   const [isRecording, setIsRecording] = useState(false);
   const [recordingDone, setRecordingDone] = useState(false);
+  const [textInput, setInputText] = useState("");
   const navigate = useNavigate();
+  const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
+
+  useEffect(() => {
+    // Initialize mediaBlobUrl to null if it's not provided
+    if (mediaBlobUrl === undefined) {
+      setMediaBlobUrl(null);
+    }
+  }, [mediaBlobUrl]);
+
+  const handleTextChange = (event) => {
+    setInputText(event.target.value);
+  };
+
+  const submitRecordingAndText = async () => {
+    if (!mediaBlobUrl) {
+      alert('Please record an audio first.');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('audio', mediaBlobUrl, 'recording.wav');
+      formData.append('text', textInput);
+
+      const response = await fetch('/your-backend-endpoint', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        navigate("/results");
+        console.log('Text and recording submitted successfully');
+      } else {
+        alert('An error occurred while submitting the data.');
+      }
+    } catch (error) {
+      alert('An error occurred while submitting the data.');
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -45,13 +83,9 @@ export default function RecordingPage() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                // Handle results button click
-                navigate("/results");
-                console.log('Results button clicked');
-              }}
+              onClick={submitRecordingAndText}
             >
-              Results
+              Submit
             </Button>
           </div>
         )}
@@ -61,7 +95,7 @@ export default function RecordingPage() {
         <ReactMediaRecorder
           audio
           mimeType="audio/wav"
-          render={({ startRecording, stopRecording, mediaBlobUrl }) => (
+          render={({ startRecording, stopRecording, blob }) => (
             <div style={{ textAlign: 'center', marginBottom: '50px' }}>
               <Button
                 variant="contained"
@@ -72,6 +106,8 @@ export default function RecordingPage() {
                     stopRecording();
                     setIsRecording(false);
                     setRecordingDone(true);
+                    // Store the Blob URL
+                    blob && setMediaBlobUrl(URL.createObjectURL(blob));
                   } else {
                     console.log('Recording started');
                     startRecording();
@@ -91,7 +127,7 @@ export default function RecordingPage() {
             </div>
           )}
         />
-        <Typography variant="body1" sx={{ my: 4 }} align='center'>
+        <Typography variant="body1" sx={{ my: 2 }} align='center' marginBottom={'50px'}>
           {details}
         </Typography>
       </div>

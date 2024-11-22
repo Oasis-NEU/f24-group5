@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, CssBaseline, Stack, Typography, Box } from '@mui/material';
 import DrawerAppBar from './DrawerAppBar'; // Adjust the import path as necessary
 
