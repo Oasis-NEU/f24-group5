@@ -113,7 +113,7 @@ class Similarity:
         return self.cos_similarity
 
 # TO RUN THE BACKEND
-# copy paste this comamnd to run "uvicorn main:app"
+# copy paste this comamnd into terminal to run "uvicorn main:app"
 
 app = FastAPI()
 origins = [
