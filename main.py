@@ -169,6 +169,6 @@ async def process_audio(given: str, sound_bite: UploadFile = File(...)):
     simil_matrix = simil.cosine_similarity_matrix()
 
     return {
-        simil_matrix[0][1]
+        round(simil_matrix[0][1], 5)
     }
 
