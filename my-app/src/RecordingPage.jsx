@@ -46,6 +46,7 @@ export default function RecordingPage() {
               variant="contained"
               color="primary"
               onClick={() => {
+                // Handle results button click
                 navigate("/results");
                 console.log('Results button clicked');
               }}
