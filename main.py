@@ -116,10 +116,6 @@ class Similarity:
 # copy paste this comamnd to run "uvicorn main:app"
 
 app = FastAPI()
-class SoundFile(BaseModel):
-    given: str
-    sound_bite: UploadFile = File(...)
-
 origins = [
     "http://localhost:3000",  # React app's development URL
 ]
@@ -131,12 +127,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-# @app.post("/SoundFile/")
-# async def create_sb():
-#   return None
-
 
 @app.post("/sound_file")
 # endpoint of this FastAPI thing idk I'm trying guys
