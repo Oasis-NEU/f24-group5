@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 import { Typography, Button } from '@mui/material';
