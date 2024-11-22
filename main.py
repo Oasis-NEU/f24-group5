@@ -117,6 +117,7 @@ class Similarity:
 # Learn and implement Mel Frequency Cepstral Coefficients to extract features from speech
 # Match these features to emotions, and from there, confidence
 
+app = FastAPI()
 
 app = FastAPI()
 
