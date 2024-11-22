@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 import { Typography, Button } from '@mui/material';
@@ -29,6 +29,7 @@ function GoBackButton() {
 export default function RecordingPage() {
   const location = useLocation();
   const { details } = location.state || {};
+  const [isRecording, setIsRecording] = useState(false);
 
   return (
     <>
@@ -47,24 +48,21 @@ export default function RecordingPage() {
             <div style={{ textAlign: 'center', marginBottom: '50px' }}>
               <Button
                 variant="contained"
-                color="primary"
+                color={isRecording ? "secondary" : "primary"}
                 onClick={() => {
-                  console.log('Recording started');
-                  startRecording();
+                  if (isRecording) {
+                    console.log('Recording stopped');
+                    stopRecording();
+                    setIsRecording(false);
+                  } else {
+                    console.log('Recording started');
+                    startRecording();
+                    setIsRecording(true);
+                  }
                 }}
+                sx={{ minWidth: '150px' , fontSize: '1rem', padding: '8px 16px' }}
               >
-                Start Recording
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => {
-                  console.log('Recording stopped');
-                  stopRecording();
-                }}
-                sx={{ ml: 2 }}
-              >
-                Stop Recording
+                {isRecording ? "Stop Recording" : "Start Recording"}
               </Button>
               {mediaBlobUrl && (
                 <a href={mediaBlobUrl} download="recording.wav" style={{ display: 'block', marginTop: '20px', marginBottom: '50px' }}>
@@ -74,9 +72,9 @@ export default function RecordingPage() {
             </div>
           )}
         />
-        <Typography variant="body1" sx={{ my: 10 }} align='center'>
-            {details}
-          </Typography>
+        <Typography variant="body1" sx={{ my: 4 }} align='center'>
+          {details}
+        </Typography>
       </div>
     </>
   );
