@@ -30,10 +30,9 @@ export default function RecordingPage() {
   const location = useLocation();
   const { details } = location.state || {};
   const [isRecording, setIsRecording] = useState(false);
+  const [recordingDone, setRecordingDone] = useState(false);
+  const navigate = useNavigate();
 
-
-export default function RecordingPage(props) {
-  const DisplayedSpeech = component[props.str];
   return (
     <>
       <CssBaseline />
@@ -41,6 +40,21 @@ export default function RecordingPage(props) {
         <div style={{ position: 'absolute', top: '10px', left: '10px' }}>
           <GoBackButton />
         </div>
+        {recordingDone && (
+          <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                // Handle results button click
+                navigate("/results");
+                console.log('Results button clicked');
+              }}
+            >
+              Results
+            </Button>
+          </div>
+        )}
         <Typography variant="h7" sx={{ my: 2, mb: 4 }} align='center' marginBottom={'50px'}>
           Begin recording on your own time (beginning a new recording will reset your recording).
         </Typography>
@@ -57,13 +71,15 @@ export default function RecordingPage(props) {
                     console.log('Recording stopped');
                     stopRecording();
                     setIsRecording(false);
+                    setRecordingDone(true);
                   } else {
                     console.log('Recording started');
                     startRecording();
                     setIsRecording(true);
+                    setRecordingDone(false);
                   }
                 }}
-                sx={{ minWidth: '150px' , fontSize: '1rem', padding: '8px 16px' , mt: 4}}
+                sx={{ minWidth: '150px', fontSize: '1rem', padding: '8px 16px', mt: 4 }}
               >
                 {isRecording ? "Stop Recording" : "Start Recording"}
               </Button>
