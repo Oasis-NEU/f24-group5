@@ -112,15 +112,10 @@ class Similarity:
         self.cos_similarity = cosine_similarity(self.tf_idf_matrix[0:1], self.tf_idf_matrix)
         return self.cos_similarity
 
-
-# TODO:
-# Learn and implement Mel Frequency Cepstral Coefficients to extract features from speech
-# Match these features to emotions, and from there, confidence
-
+# TO RUN THE BACKEND
+# copy paste this comamnd to run "uvicorn main:app"
 
 app = FastAPI()
-
-
 class SoundFile(BaseModel):
     given: str
     sound_bite: UploadFile = File(...)
