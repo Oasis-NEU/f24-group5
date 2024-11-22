@@ -137,17 +137,25 @@ function GoBackButton() {
   )
 }
 
+
+
 function Create() {
   const classes = useStyles()
   const [details, setDetails] = useState('')
   const [detailsError, setDetailsError] = useState(false)
   const navigate = useNavigate();
 
-  function SubmitButton() {
+  // eslint-disable-next-line react/prop-types
+  function SubmitButton({ details }) {
     const navigate = useNavigate();
     
     function HandleSubmitClick() {
-      handleSubmit();
+      if (details === '') {
+        setDetailsError(true)
+      }
+      else {
+        navigate("/RecordingPage", { state: { details } });
+      }
     }
   
     return (
@@ -165,12 +173,11 @@ function Create() {
     e.preventDefault()
     setDetailsError(false)
 
-    if (details == '') {
+    if (details === '') {
       setDetailsError(true)
-    }
-    else {
+    } else {
       console.log(details)
-      navigate("/RecordingPage");
+      navigate("/RecordingPage", { state: { details } });
     } 
   }
 
@@ -198,9 +205,8 @@ function Create() {
             error={detailsError}
           />
 
-          <SubmitButton />
+          <SubmitButton details={details} />
         </form>
-
     </React.Fragment>
   )
 }
