@@ -31,9 +31,6 @@ export default function RecordingPage() {
   const { details } = location.state || {};
   const [isRecording, setIsRecording] = useState(false);
 
-
-export default function RecordingPage(props) {
-  const DisplayedSpeech = component[props.str];
   return (
     <>
       <CssBaseline />
