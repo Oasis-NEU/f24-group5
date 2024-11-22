@@ -137,29 +137,29 @@ function GoBackButton() {
   )
 }
 
-function SubmitButton() {
-  const navigate = useNavigate();
-  
-  function HandleSubmitClick() {
-    navigate("/RecordingPage");
-  }
-
-  return (
-    <Button
-      type="submit" 
-      color="primary" 
-      variant="contained"
-      onClick={HandleSubmitClick}>
-      Submit
-    </Button>
-  )
-}
-
 function Create() {
   const classes = useStyles()
   const [details, setDetails] = useState('')
   const [detailsError, setDetailsError] = useState(false)
   const navigate = useNavigate();
+
+  function SubmitButton() {
+    const navigate = useNavigate();
+    
+    function HandleSubmitClick() {
+      handleSubmit();
+    }
+  
+    return (
+      <Button
+        type="submit" 
+        color="primary" 
+        variant="contained"
+        onClick={HandleSubmitClick}>
+        Submit
+      </Button>
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
