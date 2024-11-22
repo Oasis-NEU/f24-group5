@@ -5,7 +5,7 @@ import { Typography, Button } from '@mui/material';
 import { ReactMediaRecorder } from 'react-media-recorder';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function GoBackButton() {
   const navigate = useNavigate();
