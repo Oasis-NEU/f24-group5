@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import './App.css';
@@ -12,24 +11,14 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import Fade from '@mui/material/Fade';
-import TrapFocus from '@mui/material/Unstable_TrapFocus';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as Router, useNavigate, Routes, Route} from "react-router-dom";
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import About from './About'
 
 const useStyles = makeStyles({
   field: {
@@ -42,6 +31,7 @@ const useStyles = makeStyles({
 
 const drawerWidth = 240;
 
+// eslint-disable-next-line no-unused-vars
 function DrawerAppBar(props) {
   // eslint-disable-next-line react/prop-types
   const { window } = props;
@@ -130,26 +120,70 @@ function DrawerAppBar(props) {
   );
 }
 
+function GoBackButton() {
+  const navigate = useNavigate();
+
+  function HandleBackClick() {
+    const confirmBack = window.confirm("You will have to restart if you continue back. Do you want to proceed?");
+    if (confirmBack) {
+      navigate("/");
+    }
+  }
+
+  return (
+    <Button variant='text' onClick={HandleBackClick}>
+      <ArrowBackIcon /> Back
+    </Button>
+  )
+}
+
+
 
 function Create() {
   const classes = useStyles()
   const [details, setDetails] = useState('')
   const [detailsError, setDetailsError] = useState(false)
+  const navigate = useNavigate();
+
+  // eslint-disable-next-line react/prop-types
+  function SubmitButton({ details }) {
+    const navigate = useNavigate();
+    
+    function HandleSubmitClick() {
+      if (details === '') {
+        setDetailsError(true)
+      }
+      else {
+        navigate("/RecordingPage", { state: { details } });
+      }
+    }
+  
+    return (
+      <Button
+        type="submit" 
+        color="primary" 
+        variant="contained"
+        onClick={HandleSubmitClick}>
+        Submit
+      </Button>
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setDetailsError(false)
 
-    if (details == '') {
+    if (details === '') {
       setDetailsError(true)
-    }
-    if (details) {
+    } else {
       console.log(details)
+      navigate("/RecordingPage", { state: { details } });
     } 
   }
 
   return (
     <React.Fragment>
+      <GoBackButton />
       <CssBaseline />
         <Typography
           variant="h6" 
@@ -160,25 +194,19 @@ function Create() {
           Input your speech text here
         </Typography>
   
-        <form noValidate autoComplete="off" onSubmit={handleSubmit} fullWidth >
+        <form noValidate autoComplete="off" onSubmit={handleSubmit} >
           <TextField fullWidth className={classes.field}
             onChange={(e) => setDetails(e.target.value)}
             label="Speech text"
             variant="outlined"
             color="Primary"
             multiline
-            rows={10}
+            rows={20}
             error={detailsError}
           />
 
-          <Button
-            type="submit" 
-            color="primary" 
-            variant="contained">
-            Submit
-          </Button>
+          <SubmitButton details={details} />
         </form>
-
     </React.Fragment>
   )
 }

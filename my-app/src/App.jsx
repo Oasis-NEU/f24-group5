@@ -24,9 +24,12 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Popover from '@mui/material/Popover';
 
 import About from './About'
-import RecordingPage from './RecordingPage';
+import Create from './inputSpeech'
+import RecordingPage from './RecordingPage'
 
 const drawerWidth = 240;
+
+var cookiesAccepted = false;
 
 function DrawerAppBar(props) {
   // eslint-disable-next-line react/prop-types
@@ -121,6 +124,7 @@ function CookiesBanner() {
 
   const closeBanner = () => {
     setBannerOpen(false);
+    cookiesAccepted = true;
   };
 
   return (
@@ -194,7 +198,13 @@ function GetStartedButton() {
   const navigate = useNavigate();
 
   function HandleGetStartedClick() {
-    navigate("/recordingpage");
+    if (!cookiesAccepted) {
+      alert("Please accept cookies before continuing");
+      return;
+    }
+    else {
+      navigate("/inputspeech");
+    }
   }
   
   return (
@@ -219,18 +229,6 @@ function AboutButton() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/recordingpage" element={<RecordingPage />} />
-      </Routes>
-    </Router>
-  );
-}
-
 function RecorderIcon() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -246,7 +244,7 @@ function RecorderIcon() {
   
   return (
     <div>
-      <a href="mailto:santaluca.p@northeastern.edu" target="_blank">
+      <a href="mailto:santalucia.p@northeastern.edu" target="_blank">
         <RecordVoiceOverIcon fontSize='large'
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}/>
@@ -271,6 +269,19 @@ function RecorderIcon() {
       </Popover>
     </div>
   )
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/inputspeech" element={<Create />} />
+        <Route path="/RecordingPage" element={<RecordingPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
 
