@@ -113,11 +113,11 @@ print(x[0][1])
 # Learn and implement Mel Frequency Cepstral Coefficients to extract features from speech
 # Match these features to emotions, and from there, confidence
 
+app = FastAPI()
 
-#class SoundFile(BaseModel):
- #   name: str
-  #  sound_bite # type: ignore
-#app = FastAPI()
+class SoundFile(BaseModel):
+   name: str
+   sound_bite # type: ignore
 
 #@app.post("/SoundFile/")
 #async def create_sb():
