@@ -124,7 +124,10 @@ function GoBackButton() {
   const navigate = useNavigate();
 
   function HandleBackClick() {
-    navigate("/");
+    const confirmBack = window.confirm("You will have to restart if you continue back. Do you want to proceed?");
+    if (confirmBack) {
+      navigate("/");
+    }
   }
 
   return (
